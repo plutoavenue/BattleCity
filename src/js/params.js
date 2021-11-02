@@ -26,3 +26,10 @@ export const initialGameState = () => ({
     life: defaultParams.lifes + 1,
     score: 0
 })
+
+
+export const initialTankState = () => ({
+    life: defaultParams.lifes + 1,
+    score: 0
+
+})

@@ -13,15 +13,6 @@ export const welcomePageImg = {
     marginTop: 8 + '%',
     width: 60 + '%',
 }
-export const gameField = {
-   // width: defaultParams.fieldWidth + 'px',
-   // height: defaultParams.fieldHeight + 'px',
-    height: 100 + 'vh',
-    width: 100 + 'vw',
-    backgroundColor: defaultParams.fieldColor,
-    cursor: 'crosshair',
-    position: 'relative',
-}
 
 export const panelStyle = {
     textAlign: 'center',
@@ -45,6 +36,50 @@ export const messageStyle = {
     marginTop: 5 + '%',
 
 }
+
+//gameOn, leftPanel, rightPanel, 
+
+export const gameOn = {
+    // width: defaultParams.fieldWidth + 'px',
+    // height: defaultParams.fieldHeight + 'px',
+    height: 100 + 'vh',
+    width: 100 + 'vw',
+    backgroundColor: 'grey',
+    cursor: 'crosshair',
+    position: 'relative',
+    display: 'flex',
+    flexWrap: 'wrap',
+}
+
+export const leftPanel = {
+    width: 8 + 'vw',
+    backgroundColor: 'grey',
+    position: 'relative',
+}
+
+export const gameField = {
+    width: 75 + 'vw',
+    top: 5 + 'vh',
+    height: 90 + 'vh',
+    backgroundColor: defaultParams.fieldColor,
+    cursor: 'crosshair',
+    position: 'relative',
+}
+
+
+export const rightPanel = {
+    position: 'relative',
+    width: 17 + 'vw',
+    right: 0,
+    backgroundColor: 'grey',
+}
+
+export const rowItems = {
+    position: 'relative',
+    display: 'flex',
+    flexWrap: 'wrap',
+}
+
 
 
 export const makeTargetStyle = ({ xpos, ypos, fired }) => {

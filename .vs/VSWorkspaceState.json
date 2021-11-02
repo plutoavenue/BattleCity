@@ -5,8 +5,9 @@
     "\\src",
     "\\src\\components",
     "\\src\\components\\state",
+    "\\src\\data\\user",
     "\\src\\js"
   ],
-  "SelectedNode": "\\src\\js\\styles.js",
+  "SelectedNode": "\\src\\components\\state\\Map.js",
   "PreviewInSolutionExplorer": false
 }
