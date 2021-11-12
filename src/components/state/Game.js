@@ -8,6 +8,8 @@ import { defaultParams, initialGameState } from '../../js/params.js'
 import { welcomePage, welcomePageImg, messageStyle } from '../../js/styles.js'
 
 let gameParams = { ...defaultParams }
+
+
 class Game extends React.Component {
 
     runNewGame = () => {

@@ -1,163 +1,99 @@
-import React, { Component } from 'react'
-//import startPage from '../../data/startPage.png'
+import { BLOCK_SIZE, BLOCK_TYPE } from '../utils/Constants';
+import Brick from './Brick';
+import Steel from './Steel';
 
-import Target from './Target'
-import UserTank from './UserTank'
-import Attack from './Attack'
-import Move from './Move'
+class Map {
+    constructor() {
+        this.items = [];
 
-
-import bricks from '../../data/bricks.png'
-import stones from '../../data/wall.png'
-import water from '../../data/water.png'
-import grass from '../../data/grass.png'
-import background from '../../data/background.png'
-
-
-
-import { defaultParams, initialGameState } from '../../js/params.js'
-import { rowItems} from '../../js/styles.js'
-
-let gameParams = { ...defaultParams }
-
-class GameOn extends React.Component {
-
-
-    constructor(props) {
-        super(props);
-        this.row = 0
-        this.mapCont = React.createRef();
+        this.round1();
     }
 
+    round1() {
+        // brick walls
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 50, y: 50 }, 2, 10));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 150, y: 50 }, 2, 10));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 250, y: 50 }, 2, 8));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 350, y: 50 }, 2, 8));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 450, y: 50 }, 2, 10));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 550, y: 50 }, 2, 10));
 
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 250, y: 300 }, 2, 2));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 350, y: 300 }, 2, 2));
 
-    renderDivs(row) {
-        let uiItems = [];
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 100, y: 350 }, 4, 2));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 450, y: 350 }, 4, 2));
 
-        let locationMap = [['0', 'B', '0', 'S', '0', 'W', 'W', 'B', 'B', '0', '0'],
-        ['0', 'B', '0', 'S', '0', 'W', 'W', 'B', 'B', '0', '0'],
-        ['0', 'B', '0', 'G', '0', '0', '0', 'B', '0', '0', '0'],
-        ['0', '0', '0', 'G', '0', 'B', '0', 'B', '0', '0', 'G'],
-        ['0', 'B', 'B', 'B', 'B', 'B', '0', '0', '0', '0', 'G'],
-        ['0', '0', '0', '0', 'S', 'S', '0', '0', '0', '0', 'B'],
-        ['G', 'B', '0', '0', '0', '0', '0', '0', 'B', '0', 'B'],
-        ['0', 'B', '0', '0', 'B', 'B', 'B', 'S', '0', '0', 'B'],
-        ['0', 'B', '0', '0', 'B', 'M', 'B', 'S', '0', '0', 'B'],
-        ['0', 'B', 'B', '0', 'B', 'B', 'B', 'S', '0', '0', '0']];
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 250, y: 400 }, 2, 7));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 350, y: 400 }, 2, 7));
 
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 300, y: 425 }, 2, 2));
 
-        let i = 0;
-        let j = 0;
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 50, y: 450 }, 2, 8));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 150, y: 450 }, 2, 8));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 450, y: 450 }, 2, 8));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 550, y: 450 }, 2, 8));
 
-        for (i = row; i < 10; i++) {
-            for (j = 0; j < 11; j++) {
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 50, y: 450 }, 2, 8));
 
-                if (locationMap[i][j] === 'B') {
-                    uiItems.push(
-                        <div>
-                            <img src={bricks} />
-                        </div>
-                    )
+        // steel walls
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.STEEL, { x: 300, y: 175 }, 2, 2));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.STEEL, { x: 0, y: 375 }, 2, 1));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.STEEL, { x: 600, y: 375 }, 2, 1));
+
+        // headquarter
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 275, y: 625 }, 1, 3));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 350, y: 625 }, 1, 3));
+        this.items = this.items.concat(this.buildWall(BLOCK_TYPE.BRICK, { x: 300, y: 625 }, 2, 1));
+    }
+
+    /**
+     * Build a vertical wall with bricks.
+     * 
+     * @param {*} startPosition: the upper left corner 
+     * @param {*} thinkness: 1 - one brick; 2 - two bricks ...
+     * @param {*} length: 1 - one brick; 2 - two bricks ... 
+     */
+    buildWall(blockType, startPosition, thinkness, length) {
+        const wall = [];
+
+        for (let i = 0; i < thinkness; i++) {
+            let x = startPosition.x + BLOCK_SIZE * i;
+            for (let j = 0; j < length; j++) {
+                let y = startPosition.y + BLOCK_SIZE * j;
+                switch (blockType) {
+                    case BLOCK_TYPE.BRICK:
+                        wall.push(new Brick({ position: { x, y } }));
+                        break;
+                    case BLOCK_TYPE.STEEL:
+                        wall.push(new Steel({ position: { x, y } }));
+                        break;
+                    default:
+
                 }
-                else if (locationMap[i][j] === 'S') {
-                    uiItems.push(
-                        <div>
-                            <img src={stones} />
-                        </div>
-                    )
-                }
 
-                else if (locationMap[i][j] === 'W') {
-                    uiItems.push(
-                        <div>
-                            <img src={water} />
-                        </div>
-                    )
-                }
-                else if (locationMap[i][j] === 'G') {
-                    uiItems.push(
-                        <div>
-                            <img src={grass} />
-                        </div>
-                    )
-                }
-
-                else {
-                    uiItems.push(
-                        <div>
-                            <img src={background} />
-                        </div>
-                    )
-                }
             }
         }
-        
 
-    /*    while (count--)
-            uiItems.push(
-                <div>
-                    This is added div! uniqueID: {count}
-                </div>
-            )*/
-        return uiItems;
+        return wall;
     }
 
-    render() {
-       
-        return (
-            //<div style={gameOn}>
+    update() {
+        let newItems = [];
+        for (let i = 0; i < this.items.length; i++) {
+            let item = this.items[i];
+            if (!item.delete) {
+                newItems.push(item);
+            }
+        }
 
+        this.items = newItems;
+    }
 
-            //    <div style={leftPanel}>
-
-            //    </div> 
-
-            //    <div style={gameField} id="map">
-            //     <Game/>
-            //    </div>  
-
-            <div ref={this.mapCont} >
-                <div style={rowItems}>
-                    {this.renderDivs(0)}
-                </div>
-                <div style={rowItems}>
-                    {this.renderDivs(1)}
-                </div>
-                <div style={rowItems}>
-                    {this.renderDivs(2)}
-                </div >
-                <div style={rowItems}>
-                    {this.renderDivs(3)}
-                </div>
-                <div style={rowItems}>
-                    {this.renderDivs(4)}
-                </div>
-                <div style={rowItems}>
-                    {this.renderDivs(5)}
-                </div>
-                <div style={rowItems}>
-                    {this.renderDivs(6)}
-                </div>
-                <div style={rowItems}>
-                    {this.renderDivs(7)}
-                </div>
-                <div style={rowItems}>
-                    {this.renderDivs(8)}
-                </div>
-                <div style={rowItems}>
-                    {this.renderDivs(9)}
-                </div>
-                <div style={rowItems}>
-                    {this.renderDivs(10)}
-                </div>
-
-             
-                </div>  
-
-            //</div>
-
-        )
+    render(state) {
+        this.items.forEach(item => item.render(state));
     }
 }
 
-export default GameOn 
+export default Map;
+

@@ -5,9 +5,8 @@
     "\\src",
     "\\src\\components",
     "\\src\\components\\state",
-    "\\src\\data\\user",
     "\\src\\js"
   ],
-  "SelectedNode": "\\src\\components\\state\\Map.js",
+  "SelectedNode": "\\src\\components\\state\\Attack.js",
   "PreviewInSolutionExplorer": false
 }
