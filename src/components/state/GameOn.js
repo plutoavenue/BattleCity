@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 //import startPage from '../../data/startPage.png'
 
-import Target from './Target'
-import UserTank from './UserTank'
-import Attack from './Attack'
-import Move from './Move'
+
 import Map from './Map'
 
 
@@ -68,6 +65,8 @@ class GameOn extends React.Component {
         };
 
         this.canvas = React.createRef();
+
+        this.mapCont = React.createRef();
 
         this.map = null;
         this.eagle = null;
@@ -144,6 +143,20 @@ class GameOn extends React.Component {
         requestAnimationFrame(() => this.update());
     }
 
+    win() {
+        this.congras = 'You won!';
+        this.endGame();
+    }
+
+    lose() {
+        this.congras = 'You lost!'
+        this.endGame();
+    }
+
+    endGame() {
+        this.setState({ gameState: GAME_STATE.GAME_OVER });
+    }
+
     startGame() {
         this.map = new Map();
         this.eagle = new Eagle({ onDie: () => this.lose() });
@@ -183,7 +196,6 @@ class GameOn extends React.Component {
                 <div style={gameField} ref={this.mapCont} id='map' >
 
                     <ImagesCache />
-
 
                     <canvas ref={this.canvas}
                         width={this.state.screen.width}

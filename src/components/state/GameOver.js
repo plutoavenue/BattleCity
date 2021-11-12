@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 //import startPage from '../../data/startPage.png'
 
-import Target from './Target'
-import UserTank from './UserTank'
-import Attack from './Attack'
-import Move from './Move'
 
 
 import { defaultParams, initialGameState } from '../../js/params.js'
