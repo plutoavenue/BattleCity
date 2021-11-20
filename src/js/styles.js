@@ -14,6 +14,13 @@ export const welcomePageImg = {
     width: 60 + '%',
 }
 
+export const GameOverImg = {
+    display: 'block',
+    margin: 0 + ' auto',
+    marginTop: 8 + '%',
+    width: 60 + '%',
+}
+
 export const panelStyle = {
     textAlign: 'center',
    // fontSize: '30px',

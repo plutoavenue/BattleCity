@@ -1,37 +1,37 @@
 import React, { Component } from 'react'
-//import startPage from '../../data/startPage.png'
-
-
-
-import { defaultParams, initialGameState } from '../../js/params.js'
-import { gameField, panelStyle, gameOn, leftPanel, rightPanel,  messageStyle } from '../../js/styles.js'
-
-let gameParams = { ...defaultParams }
+import gameover from '../../data/gameover.jpg'
+import { GameOverImg, messageStyle, welcomePage } from '../../js/styles.js'
+import { BrowserRouter as  Link } from 'react-router-dom';
 
 class GameOver extends React.Component {
 
-
     render() {
         return (
-            <div style={gameOn}>
+            <div>
 
+            <div style={welcomePage}>
+                <img src={gameover} style={GameOverImg} />
 
-                <div style={leftPanel}>
+                <div style={messageStyle}>
+                    {
+                        <div
+                            style={messageStyle}
+                            onClick={() => this.runNewGame()}   >
 
-                </div> 
-
-                <div style={gameField}>
-                   <span> SHOOOOOOOOO </span>
-                </div>  
-
-                <div style={rightPanel}>
-
-                </div>  
-
+                            <div style={messageStyle}>
+                                <Link to='/'>
+                                    <span style={{ cursor: 'pointer' }}>RETURN TO MAIN PAGE </span>
+                                </Link>
+                            </div>
+                            <br />
+                        </div>
+                    }
+                </div>
             </div>
 
-        )
+        </div>
+        );
     }
 }
 
-export default GameOver 
+export default GameOver ;
