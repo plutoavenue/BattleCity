@@ -1,3 +1,6 @@
+import React, { Component } from 'react'
+
+
 export const SCREEN_WIDTH = 650;
 
 export const SCREEN_HEIGHT = 700;
@@ -25,6 +28,15 @@ export const AUTOTANK_SHOOT_FREQUENCY = 2500; //ms
 export const LOWEST_POSITION = SCREEN_HEIGHT - TANK_SIZE;
 
 export const LONGEST_POSITION = SCREEN_WIDTH - TANK_SIZE;
+
+export const GAME_STATE = {
+    START_SCREEN: 0,
+    PLAYING: 1,
+    GAME_OVER: 2
+};
+
+export const gameStateContext = React.createContext(
+    GAME_STATE.START_SCREEN);
 
 export const DIRECTION = {
   UP: 0,

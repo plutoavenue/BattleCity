@@ -27,11 +27,8 @@ import grass from '../../data/grass.png'
 import base from '../../data/base.png'
 
 
+import { gameField, gameOn, leftPanel, rightPanel } from '../../js/styles.js'
 
-import { defaultParams, initialGameState } from '../../js/params.js'
-import { gameField, panelStyle, gameOn, leftPanel, rightPanel,  messageStyle } from '../../js/styles.js'
-
-let gameParams = { ...defaultParams }
 
 const GAME_STATE = {
     START_SCREEN: 0,
@@ -93,7 +90,7 @@ class GameOn extends React.Component {
     clearBackground() {
         const context = this.state.context;
         context.save();
-      //  context.scale(this.state.screen.ratio, this.state.screen.ratio);
+        //  context.scale(this.state.screen.ratio, this.state.screen.ratio);
         context.fillRect(0, 0, this.state.screen.width, this.state.screen.height);
         context.globalAlpha = 1;
     }
@@ -104,8 +101,8 @@ class GameOn extends React.Component {
 
         switch (this.state.gameState) {
             case GAME_STATE.START_SCREEN:
-                
-                    this.startGame();
+
+                this.startGame();
                 this.setState({
                     gameState: GAME_STATE.PLAYING
                 });
@@ -191,7 +188,7 @@ class GameOn extends React.Component {
 
                 <div style={leftPanel}>
 
-                </div> 
+                </div>
 
                 <div style={gameField} ref={this.mapCont} id='map' >
 
@@ -202,13 +199,13 @@ class GameOn extends React.Component {
                         height={this.state.screen.height}
                     />
 
-                    { <TankCount count={this.state.autoTanksCount} />} 
+                    {<TankCount count={this.state.autoTanksCount} />}
 
-                               </div>  
+                </div>
 
                 <div style={rightPanel}>
 
-                </div>  
+                </div>
 
             </div>
 
