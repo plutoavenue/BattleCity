@@ -28,15 +28,8 @@ import base from '../../data/base.png'
 
 
 import { gameField, gameOn, leftPanel, rightPanel } from '../../js/styles.js'
-
-
-const GAME_STATE = {
-    START_SCREEN: 0,
-    PLAYING: 1,
-    GAME_OVER: 2
-};
-
-
+import { connect } from 'react-redux';
+import { gameOverAction, playingAction, startScreenAction } from '../redux/reducer';
 class GameOn extends React.Component {
 
 
@@ -52,8 +45,6 @@ class GameOn extends React.Component {
                 ratio: RATIO
             },
 
-            gameState: GAME_STATE.START_SCREEN,
-
             context: null,
 
             score: 0,
@@ -66,7 +57,7 @@ class GameOn extends React.Component {
         this.mapCont = React.createRef();
 
         this.map = null;
-        this.eagle = null;
+        // this.eagle = null;
 
         this.tank1 = null;
         this.tank2 = null;
@@ -80,7 +71,31 @@ class GameOn extends React.Component {
         this.state.input.bindKeys();
         const context = this.canvas.current.getContext('2d');
         this.setState({ context: context });
+      
+        this.map = new Map();
+        this.eagle = new Eagle({ onDie: () => this.lose() });
         requestAnimationFrame(() => this.update());
+        this.tank1 = new Tank({
+            speed: 2.5,
+            position: {
+                x: this.state.screen.width / 2 - 100,
+                y: LOWEST_POSITION
+            },
+            onDie: () => this.lose()
+        });
+
+        this.autoTankController = new AutoTankController({
+            count: 20,
+            onAllDie: () => this.win(),
+            map: this.map,
+            tank: this.tank1,
+            eagle: this.eagle
+        });
+
+        this.setState({
+            score: 0,
+            autoTanksCount: 20
+        });
     }
 
     componentWillUnmount() {
@@ -98,17 +113,6 @@ class GameOn extends React.Component {
 
     update() {
         const keys = this.state.input.pressedKeys;
-
-        switch (this.state.gameState) {
-            case GAME_STATE.START_SCREEN:
-
-                this.startGame();
-                this.setState({
-                    gameState: GAME_STATE.PLAYING
-                });
-                break;
-
-            case GAME_STATE.PLAYING:
                 this.clearBackground();
 
                 this.map.update();
@@ -128,14 +132,8 @@ class GameOn extends React.Component {
                     });
                 }
 
-                break;
-
-            case GAME_STATE.GAME_OVER:
-                break;
-
-            default:
             // do nothing
-        }
+        
 
         requestAnimationFrame(() => this.update());
     }
@@ -151,36 +149,9 @@ class GameOn extends React.Component {
     }
 
     endGame() {
-        this.setState({ gameState: GAME_STATE.GAME_OVER });
+        this.props.gameOver();
     }
 
-    startGame() {
-        this.map = new Map();
-        this.eagle = new Eagle({ onDie: () => this.lose() });
-
-        this.tank1 = new Tank({
-            speed: 2.5,
-            position: {
-                x: this.state.screen.width / 2 - 100,
-                y: LOWEST_POSITION
-            },
-            onDie: () => this.lose()
-        });
-
-        this.autoTankController = new AutoTankController({
-            count: 20,
-            onAllDie: () => this.win(),
-            map: this.map,
-            tank: this.tank1,
-            eagle: this.eagle
-        });
-
-        this.setState({
-            gameState: GAME_STATE.PLAYING,
-            score: 0,
-            autoTanksCount: 20
-        });
-    }
     render() {
         return (
             <div style={gameOn} ref={this.map}>
@@ -213,4 +184,14 @@ class GameOn extends React.Component {
     }
 }
 
-export default GameOn 
+const mapStateToProps = (state) => ({
+    type: state.gameOn.type,
+});
+
+const mapDispatchToProps = {
+    startScreen: startScreenAction,
+    playing: playingAction,
+    gameOver: gameOverAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameOn); 

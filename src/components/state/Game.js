@@ -11,7 +11,9 @@ import {
 import GameOver from './GameOver';
 import GameOn from './GameOn';
 
-import { welcomePage, welcomePageImg, messageStyle } from '../../js/styles.js'
+import { welcomePage, welcomePageImg, messageStyle, gameOn } from '../../js/styles.js'
+import { connect } from 'react-redux';
+import { gameOverAction, playingAction, startScreenAction } from '../redux/reducer';
 
 
 class Game extends React.Component {
@@ -24,12 +26,13 @@ class Game extends React.Component {
 
 
     render() {
+        const { startScreen, playing, gameOver, type } = this.props;
         return (
 
 
             <div>
                 
-                {this.context === GAME_STATE.START_SCREEN &&
+                {type === 'START_SCREEN' &&
                     <div style={welcomePage}>
 
                         <img src={startPage} style={welcomePageImg} />
@@ -41,7 +44,7 @@ class Game extends React.Component {
                                 <div style={messageStyle}
                                    
                                     onClick={() =>
-                                        this.startGame()
+                                        playing()
                                     } >
                                   
                                         <span style={{ cursor: 'pointer' }}>START NEW BATTLE</span>
@@ -55,9 +58,9 @@ class Game extends React.Component {
                         </div>
                     </div>
                 }
-                {  this.context === GAME_STATE.GAME_OVER && <GameOver />}
+                {  type === 'GAME_OVER' && <GameOver />}
 
-                {  this.context === GAME_STATE.PLAYING && <GameOn /> }
+                {  type === 'PLAYING' && <GameOn /> }
             </div>
 
 
@@ -66,4 +69,15 @@ class Game extends React.Component {
     }
 }
 Game.contextType = gameStateContext;
-export default Game 
+
+const mapStateToProps = (state) => ({
+    type: state.gameOn.type,
+});
+
+const mapDispatchToProps = {
+    startScreen: startScreenAction,
+    playing: playingAction,
+    gameOver: gameOverAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game) 
