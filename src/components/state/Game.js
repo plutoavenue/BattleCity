@@ -1,12 +1,5 @@
 import React, { Component } from 'react'
 import startPage from '../../data/startPage.png'
-import Map from './Map'
-
-
-import {
-    GAME_STATE,
-    gameStateContext
-} from '../utils/Constants';
 
 import GameOver from './GameOver';
 import GameOn from './GameOn';
@@ -19,18 +12,13 @@ import { gameOverAction, playingAction, startScreenAction } from '../redux/reduc
 class Game extends React.Component {
 
 
- 
-    startGame() {
-        this.context = GAME_STATE.PLAYING;
-    }
-
-
     render() {
         const { startScreen, playing, gameOver, type } = this.props;
         return (
 
 
             <div>
+                {console.log(this.props.type)}
                 
                 {type === 'START_SCREEN' &&
                     <div style={welcomePage}>
@@ -68,7 +56,6 @@ class Game extends React.Component {
 
     }
 }
-Game.contextType = gameStateContext;
 
 const mapStateToProps = (state) => ({
     type: state.gameOn.type,

@@ -4,9 +4,11 @@
     "\\public",
     "\\src",
     "\\src\\components",
+    "\\src\\components\\redux",
     "\\src\\components\\state",
+    "\\src\\components\\utils",
     "\\src\\js"
   ],
-  "SelectedNode": "\\src\\components\\state\\Attack.js",
+  "SelectedNode": "\\src\\components\\redux\\reducer.js",
   "PreviewInSolutionExplorer": false
 }
