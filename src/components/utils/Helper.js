@@ -2,7 +2,8 @@ import {
   DIRECTION, 
   TANK_SIZE, 
   BULLET_SIZE,
-  BLOCK_SIZE
+    BLOCK_SIZE,
+    BLOCK_TYPE,
 } from './Constants';
 
 const isRectanglesCrashed = (rect1, rect2) =>
@@ -29,9 +30,35 @@ const isBulletBulletCrashed = (bullet1, bullet2) =>
 /**
  * Intentionally make tank and block smaller, so the tank turns more easily.
  */
-const isTankBlockCrashed = (tank, block) => 
-  isRectanglesCrashed({x: tank.position.x + 5, y: tank.position.y + 5, width: TANK_SIZE - 5, height: TANK_SIZE - 5},
-    {x: block.position.x + 5, y: block.position.y + 5, width: BLOCK_SIZE - 5, height: BLOCK_SIZE - 5});
+const isTankBlockCrashed = (tank, block) =>
+    isRectanglesCrashed({
+        x: tank.position.x + 5,
+        y: tank.position.y + 5,
+        width: TANK_SIZE - 5,
+        height: TANK_SIZE - 5
+    },
+        {
+            x: block.position.x + 5,
+            y: block.position.y + 5,
+            width: BLOCK_SIZE - 5,
+            height: BLOCK_SIZE - 5
+        })
+    && block.type != BLOCK_TYPE.GRASS;
+
+const isTankHiden = (tank, block) =>
+    isRectanglesCrashed({
+        x: tank.position.x + 5,
+        y: tank.position.y + 5,
+        width: TANK_SIZE - 5,
+        height: TANK_SIZE - 5
+    },
+        {
+            x: block.position.x + 5,
+            y: block.position.y + 5,
+            width: BLOCK_SIZE - 5,
+            height: BLOCK_SIZE - 5
+        })
+    && block.type == BLOCK_TYPE.GRASS;
 
 /**
  * Intentionally make bullet bigger, so it breaks two bricks at one shot sometimes.
@@ -71,7 +98,7 @@ const getTankGunPosition = tank => {
 const isTankBlocked = (tank, map, otherTanks) => {
   let rv = false;
 
-  if (map && map.items && map.items.length > 0) {
+  if (map && map.items && map.items.length > 0 ) {
     rv = map.items.some(block => isTankBlockCrashed(tank, block));
   }
 
@@ -80,8 +107,18 @@ const isTankBlocked = (tank, map, otherTanks) => {
   if (otherTanks && otherTanks.length > 0) {
     rv = otherTanks.some(ot => !ot.delete && ot !==tank && isTankTankCrashed(ot, tank));
   }
-
+    
   return rv;
+}
+
+const isTankUnderBush = (tank, map) => {
+    let rv = false;
+
+    if (map && map.items && map.items.length > 0) {
+        rv = map.items.some(block => isTankHiden(tank, block));
+    }
+    
+    return rv;
 }
 
 export {
@@ -90,5 +127,6 @@ export {
   isTankTankCrashed,
   isBulletBlockCrashed,
   isTankBlocked,
-  isBulletBulletCrashed
+    isBulletBulletCrashed,
+    isTankUnderBush
 };

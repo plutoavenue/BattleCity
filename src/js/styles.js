@@ -56,6 +56,7 @@ export const gameOn = {
     position: 'relative',
     display: 'flex',
     flexWrap: 'wrap',
+    zIndex: 1,
 }
 
 export const leftPanel = {
