@@ -9,6 +9,6 @@
     "\\src\\components\\utils",
     "\\src\\js"
   ],
-  "SelectedNode": "\\src\\components\\redux\\reducer.js",
+  "SelectedNode": "\\src\\components\\state\\Tank.js",
   "PreviewInSolutionExplorer": false
 }

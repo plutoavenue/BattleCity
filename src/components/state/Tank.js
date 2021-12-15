@@ -17,7 +17,8 @@ import {
   getTankGunPosition,
   isTankBlocked,
   isBulletTankCrashed,
-  isBulletBlockCrashed
+    isBulletBlockCrashed,
+    isTankUnderBush
 } from '../utils/Helper';
 
 class Tank {
@@ -30,13 +31,16 @@ class Tank {
     this.lastShot = 0;
     this.bullets = [];
     this.onDie = onDie;
+    this.hiden = false;
   }
 
   die() {
     this.onDie();
   }
 
-  update(keys, map, autoTanks) {
+    update(keys, map, autoTanks) {
+        this.hiden = isTankUnderBush(this, map);
+
     if (keys.up) {
       this.direction = DIRECTION.UP;
       this.ref = TANK_UP_REF.current;
@@ -125,8 +129,9 @@ class Tank {
   }
 
   render(state) {
-    const context = state.context;
-    
+      const context = state.context;
+      if (this.hiden) context.globalAlpha = 0.5;
+      
     context.drawImage(this.ref, this.position.x, this.position.y);
 
     this.renderBullets(state);

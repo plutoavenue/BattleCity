@@ -52,7 +52,9 @@ export const COLOR = {
 
 export const BLOCK_TYPE = {
   BRICK: 0,
-  STEEL: 1
+  STEEL: 1,
+  GRASS: 2,
+  WATER: 3,
 };
 
 export const EAGLE_POSITION = {
