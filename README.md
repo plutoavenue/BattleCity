@@ -12,7 +12,7 @@ This project has been implemented as part of university course “Software Syste
 The purpose of the online game is to allow you to play the old Famicom game “Battle City” using only the Internet and a standard browser. The game is based on ReactJS technology, using Redux and a relational database with user's progress. In future, we hope to provide a comfortable gaming experience, free to use, with personal tanks constructor and the ability to play in any device.
 
 # 2. OVERALL DESCRIPTION
-## 2.1 PRODUCT PERSPECTIVE
+## 2.1 DISTRIBUTED DATABASE:
 
 A battlecity database system stores the following user's information:
 -	User name (login);
