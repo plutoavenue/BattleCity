@@ -14,6 +14,13 @@ export const welcomePageImg = {
     width: 60 + '%',
 }
 
+export const GameOverImg = {
+    display: 'block',
+    margin: 0 + ' auto',
+    marginTop: 8 + '%',
+    width: 60 + '%',
+}
+
 export const panelStyle = {
     textAlign: 'center',
    // fontSize: '30px',
@@ -49,6 +56,7 @@ export const gameOn = {
     position: 'relative',
     display: 'flex',
     flexWrap: 'wrap',
+    zIndex: 1,
 }
 
 export const leftPanel = {
@@ -80,7 +88,16 @@ export const rowItems = {
     flexWrap: 'wrap',
 }
 
-
+export const nextLevel = {
+    zIndex: 2,
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    height: 100 + 'vh',
+    width: 100 + 'vw',
+    top: 0,
+    left: 0,
+    padding: '30px 0'
+}
 
 export const makeTargetStyle = ({ xpos, ypos, fired }) => {
     return {

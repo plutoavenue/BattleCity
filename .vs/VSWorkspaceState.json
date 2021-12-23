@@ -4,10 +4,11 @@
     "\\public",
     "\\src",
     "\\src\\components",
+    "\\src\\components\\redux",
     "\\src\\components\\state",
-    "\\src\\data\\user",
+    "\\src\\components\\utils",
     "\\src\\js"
   ],
-  "SelectedNode": "\\src\\components\\state\\Map.js",
+  "SelectedNode": "\\src\\components\\state\\Tank.js",
   "PreviewInSolutionExplorer": false
 }
