@@ -4,7 +4,6 @@ import Map from './Map'
 import {
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
-    RATIO,
     LOWEST_POSITION
 } from '../utils/Constants';
 import InputManager from '../utils/InputManager';
@@ -13,9 +12,14 @@ import ImagesCache from './ImagesCache';
 import AutoTankController from './AutoTankController';
 import Eagle from './Eagle';
 import TankCount from './TankCount';
+import { BrowserRouter as Link } from 'react-router-dom';
+
+import next_level from '../../data/next_level.png'
 
 
-import { gameField, gameOn, leftPanel, rightPanel } from '../../js/styles.js'
+import {
+    gameField, nextLevel, gameOn, leftPanel, rightPanel, welcomePageImg,
+    messageStyle} from '../../js/styles.js'
 import { connect } from 'react-redux';
 import { gameOverAction, playingAction, startScreenAction } from '../redux/reducer';
 
@@ -23,6 +27,8 @@ const MODE = {
     START: 0,
     ON: 1,
     GAME_OVER: 2,
+    PAUSE: 3,
+    WIN: 4
 }
 class GameOn extends React.Component {
 
@@ -36,7 +42,7 @@ class GameOn extends React.Component {
             screen: {
                 width: SCREEN_WIDTH,
                 height: SCREEN_HEIGHT,
-                ratio: RATIO
+                ratio: 1
             },
 
             initState: MODE.START, 
@@ -61,6 +67,8 @@ class GameOn extends React.Component {
         this.autoTankController = null;
 
         this.congras = '';
+        this.level = 1;
+        this.pause = 1;
     }
 
     componentDidMount() {
@@ -77,7 +85,7 @@ class GameOn extends React.Component {
     clearBackground() {
         const context = this.state.context;
         context.save();
-        //  context.scale(this.state.screen.ratio, this.state.screen.ratio);
+        context.scale(this.state.screen.ratio, this.state.screen.ratio);
         context.fillRect(0, 0, this.state.screen.width, this.state.screen.height);
         context.globalAlpha = 1;
     }
@@ -86,8 +94,22 @@ class GameOn extends React.Component {
     update() {
 
         const keys = this.state.input.pressedKeys;
+        if (keys.esc !== 0 && this.pause === 1) {
+            this.setState({ initState: MODE.PAUSE });
+            this.pause = 2;
+            this.state.input.pressedKeys.esc = 0;
+        }
+        else if (keys.esc !== 0 && this.pause === 2) {
+            this.setState({ initState: MODE.ON });
+            this.pause = 1;
+            this.state.input.pressedKeys.esc = 0;
 
+        }
         switch (this.state.initState) {
+            case MODE.WIN:
+                break;
+            case MODE.PAUSE:
+                break;
             case MODE.START:
                 this.startGame();
                 this.setState({
@@ -127,13 +149,23 @@ class GameOn extends React.Component {
 
     }
 
+    nextLevel() {
+     
+        if (this.level != 5) {
+            this.level += 1;
+            this.setState({
+                initState: MODE.ON
+            });
+          //  this.startGame();
+        }
+
+    }
+
     win() {
-        this.congras = 'You won!';
-        this.endGame();
+        this.setState({ initState: MODE.WIN });
     }
 
     lose() {
-        this.congras = 'You lost!'
         this.endGame();
     }
 
@@ -143,7 +175,7 @@ class GameOn extends React.Component {
     }
 
     startGame() {
-        this.map = new Map();
+        this.map = new Map({ level: this.level });
         this.eagle = new Eagle({ onDie: () => this.lose() });
 
         this.tank1 = new Tank({
@@ -174,7 +206,48 @@ class GameOn extends React.Component {
         const { startScreen, playing, gameOver, type } = this.props;
 
         return (
+
             <div style={gameOn} ref={this.map}>
+
+                {this.state.initState === MODE.WIN
+                    && <div style={nextLevel}>
+                    <img src={next_level} style={welcomePageImg} />
+                    <div style={messageStyle}
+                        onClick={() =>
+                            this.nextLevel()
+                        } >
+                        <span style={{ cursor: 'pointer' }}>NEXT LEVEL</span>
+                    </div>
+
+                    <div style={messageStyle}
+
+                        onClick={() =>
+                            playing()
+                        } >
+
+                        <span style={{ cursor: 'pointer' }}>BACK TO MAIN PAIG</span>
+                    </div>
+
+                    </div>}
+
+                {this.state.initState === MODE.PAUSE
+                    && <div style={nextLevel}>
+                        <div style={messageStyle}>
+                        <span style={{ cursor: 'pointer' }}>PAUSE</span>
+                        </div>
+                          <div
+                        style={messageStyle}
+                        onClick={() => this.props.startScreen()}   >
+
+                        <div style={messageStyle}>
+                            <Link to='/'>
+                                <span style={{ cursor: 'pointer' }}>END GAME AND RETURN TU MAIN PAGE </span>
+                            </Link>
+                        </div>
+                        <br />
+                     </div>
+
+                    </div>}
 
 
                 <div style={leftPanel}>

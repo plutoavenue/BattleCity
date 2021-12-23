@@ -18,7 +18,6 @@ class Game extends React.Component {
 
 
             <div>
-                {console.log(this.props.type)}
                 
                 {type === 'START_SCREEN' &&
                     <div style={welcomePage}>

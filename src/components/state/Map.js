@@ -6,10 +6,28 @@ import Water from './Water';
 
 
 class Map {
-    constructor() {
+    constructor({ level }) {
         this.items = [];
 
-        this.round1();
+      //  this.round1();
+        this.level = level;
+        switch (level) {
+            case (1):
+                this.round1();
+                break;
+            case (2):
+                this.round2();
+                break;
+            case (3):
+                this.round3();
+                break;
+            case (4):
+                this.round4();
+                break;
+            case (5):
+                this.round5();
+                break;
+        }
     }
 
     round1() {

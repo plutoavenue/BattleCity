@@ -88,7 +88,16 @@ export const rowItems = {
     flexWrap: 'wrap',
 }
 
-
+export const nextLevel = {
+    zIndex: 2,
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    height: 100 + 'vh',
+    width: 100 + 'vw',
+    top: 0,
+    left: 0,
+    padding: '30px 0'
+}
 
 export const makeTargetStyle = ({ xpos, ypos, fired }) => {
     return {
