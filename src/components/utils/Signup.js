@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
 import MyField from "./MyField";
-import "./styles.scss";
+
 
 
 const composeValidators = (validators) => (value, allValues) => {
@@ -85,8 +85,9 @@ class Signup extends React.Component {
           onSubmit={this.onSubmit}
           render={({ handleSubmit, form, submitting, pristine }) => (
             <div className="wrapper">
-              <div className="title">Form</div>
-              <form onSubmit={handleSubmit}>
+                  <div className="title">Form</div>
+                  <form onSubmit={handleSubmit} className="boxSignUp" id="boxSignUp">
+                      <h1 className="boxh">Sign Up</h1>
                 {Object.entries(this.state.fields).map(
                   ([fieldName, fieldState]) => {
                     return (
@@ -98,14 +99,14 @@ class Signup extends React.Component {
                           key={fieldState.title}
                           type={fieldState.type}
                           label={fieldState.label}
-                          className="input"
+                          className="boxinput"
                           placeholder={fieldState.placeholder}
                           autoComplete={fieldState.autoComplete}
                         ></Field>
                     );
                   }
                 )}
-                <button type="submit" className="button" disabled={submitting}>
+                <button type="submit" className="buttonBox" disabled={submitting}>
                   {" "}
                   Submit{" "}
                 </button>

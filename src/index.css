@@ -15,12 +15,20 @@ code {
 }
 
 
-.box h1 {
+.boxh {
     color: white;
     text-transform: uppercase;
     font-size: 60px;
     margin: 50px;
 }
+
+.buttonBox {
+    color: white;
+    text-transform: uppercase;
+    font-size: 60px;
+    margin: 50px;
+}
+
 
 .box {
     width: 500px;
@@ -91,3 +99,44 @@ code {
     border-radius: 10px;
 }
 
+.boxSignUp input[type = "text"], .boxSignUp input[type = "password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 5px auto;
+    text-align: center;
+    border: 2px solid gray;
+    padding: 14px 100px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    font-size: 20px;
+}
+
+    .boxSignUp input[type = "text"]:focus, .boxSignUp input[type = "password"]:focus {
+        width: 280px;
+        border-color: green;
+    }
+
+.buttonBox {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 40px auto;
+    text-align: center;
+    border: 2px solid green;
+    padding: 14px 40px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+    .buttonBox:hover {
+        background: green;
+    }
