@@ -99,6 +99,32 @@ export const nextLevel = {
     padding: '30px 0'
 }
 
+export const box = {
+    width: '500px',
+    height: '400px',
+    padding: '40px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    background: 'black',
+    textAlign: 'center',
+    borderRadius: '10px',
+}
+
+
+
+export const lgn = {
+    zIndex: 2,
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    height: 100 + 'vh',
+    width: 100 + 'vw',
+    top: 0,
+    left: 0,
+    padding: '30px 0'
+}
+
 export const makeTargetStyle = ({ xpos, ypos, fired }) => {
     return {
         width: defaultParams.targetWidth,

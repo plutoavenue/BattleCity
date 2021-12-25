@@ -1,0 +1,58 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic);
+
+.navigation {
+    background-size: contain;
+    background-color: black;
+
+}
+.act {
+    background: rgba(0, 0, 0, 0.00);
+    border:none;
+}
+    nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        nav ul:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+
+.act {
+    text-decoration: none;
+    display: block;
+    transition: .3s linear;
+}
+
+.topmenu > li {
+    float: right;
+    position: relative;
+}
+
+.active:after {
+    content: "\f107";
+    font-family: "FontAwesome";
+    color: inherit;
+    margin-left: 10px;
+}
+
+.act {
+    padding: 20px 30px;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #FEFDFD;
+    letter-spacing: 2px;
+}
+
+    .act.active {
+        color: #ddbe86;
+    }
+
+.topmenu .fa {
+    margin-left: 5px;
+    color: inherit;
+}

@@ -4,6 +4,7 @@ import startPage from '../../data/startPage.png'
 import GameOver from './GameOver';
 import GameOn from './GameOn';
 
+
 import { welcomePage, welcomePageImg, messageStyle, gameOn } from '../../js/styles.js'
 import { connect } from 'react-redux';
 import { gameOverAction, playingAction, startScreenAction } from '../redux/reducer';
@@ -11,6 +12,22 @@ import { gameOverAction, playingAction, startScreenAction } from '../redux/reduc
 
 class Game extends React.Component {
 
+  
+    dbCheck() {
+        
+        fetch("http://localhost/battlecity", {
+            method : 'POST',
+            mode: 'no-cors',
+            header : {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: JSON.stringify({action:1})
+        })
+            .then(response => response.text())
+            .then(response => {
+                console.log(response);
+            });
+    }
 
     render() {
         const { startScreen, playing, gameOver, type } = this.props;
@@ -18,11 +35,12 @@ class Game extends React.Component {
 
 
             <div>
-                
                 {type === 'START_SCREEN' &&
+
                     <div style={welcomePage}>
 
-                        <img src={startPage} style={welcomePageImg} />
+                    <img src={startPage} style={welcomePageImg} />
+
                         <div style={messageStyle}>
                             {
                                 <div
@@ -36,15 +54,22 @@ class Game extends React.Component {
                                   
                                         <span style={{ cursor: 'pointer' }}>START NEW BATTLE</span>
                                     </div>
-                                    <br />
-                                    <div>
-                                        <span style={{ cursor: 'pointer' }}>OPTIONS</span>
-                                    </div>
+                                <div style={messageStyle}
+                                    onClick={() =>
+                                        this.dbCheck()
+                                    } >
+
+                                    <span style={{ cursor: 'pointer' }}>OPTIONS </span>
+                                   
+
+                                </div>
                                 </div>
                             }
                         </div>
                     </div>
+
                 }
+
                 {  type === 'GAME_OVER' && <GameOver />}
 
                 {  type === 'PLAYING' && <GameOn /> }
