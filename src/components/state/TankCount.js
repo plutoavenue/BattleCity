@@ -5,7 +5,7 @@ const TankCount = ({count}) => {
 
   const tanks = []
   for (let i=0;i<count;i++) {
-    tanks.push(<img src="/images/tank-count.png" />);
+    tanks.push(<img src="/images/tank-count.png" alt='noimg'/>);
   }
 
   return (

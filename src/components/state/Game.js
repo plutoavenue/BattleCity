@@ -5,12 +5,12 @@ import GameOver from './GameOver';
 import GameOn from './GameOn';
 
 
-import { welcomePage, welcomePageImg, messageStyle, gameOn } from '../../js/styles.js'
+import { welcomePage, welcomePageImg, messageStyle } from '../../js/styles.js'
 import { connect } from 'react-redux';
 import { gameOverAction, playingAction, startScreenAction } from '../redux/reducer';
 
 
-class Game extends React.Component {
+class Game extends Component {
 
   
     dbCheck() {
@@ -30,7 +30,7 @@ class Game extends React.Component {
     }
 
     render() {
-        const { startScreen, playing, gameOver, type } = this.props;
+        const { playing, type } = this.props;
         return (
 
 
@@ -39,7 +39,7 @@ class Game extends React.Component {
 
                     <div style={welcomePage}>
 
-                    <img src={startPage} style={welcomePageImg} />
+                    <img src={startPage} style={welcomePageImg} alt='noimg'/>
 
                         <div style={messageStyle}>
                             {

@@ -43,7 +43,7 @@ const isTankBlockCrashed = (tank, block) =>
             width: BLOCK_SIZE - 5,
             height: BLOCK_SIZE - 5
         })
-    && block.type != BLOCK_TYPE.GRASS;
+    && block.type !== BLOCK_TYPE.GRASS;
 
 const isTankHiden = (tank, block) =>
     isRectanglesCrashed({
@@ -58,7 +58,7 @@ const isTankHiden = (tank, block) =>
             width: BLOCK_SIZE - 5,
             height: BLOCK_SIZE - 5
         })
-    && block.type == BLOCK_TYPE.GRASS;
+    && block.type === BLOCK_TYPE.GRASS;
 
 /**
  * Intentionally make bullet bigger, so it breaks two bricks at one shot sometimes.

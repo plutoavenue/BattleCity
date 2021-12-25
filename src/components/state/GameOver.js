@@ -5,14 +5,14 @@ import { BrowserRouter as  Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { gameOverAction, playingAction, startScreenAction } from '../redux/reducer';
 
-class GameOver extends React.Component {
+class GameOver extends Component {
 
     render() {
         return (
             <div>
 
             <div style={welcomePage}>
-                <img src={gameover} style={GameOverImg} />
+                <img src={gameover} style={GameOverImg} alt='noimg'/>
 
                 <div style={messageStyle}>
                     {

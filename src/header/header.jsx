@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BrowserRouter as Redirect } from 'react-router-dom';
 
 import './header.css';
 

@@ -4,7 +4,7 @@ import { box} from '../../js/styles.js'
 import { BrowserRouter as  Redirect } from 'react-router-dom';
 
 
-class Login extends React.Component {
+class Login extends Component {
 
     constructor({ isLoggedIn, onLogin }) {
         super();

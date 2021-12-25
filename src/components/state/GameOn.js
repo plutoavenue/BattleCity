@@ -30,7 +30,7 @@ const MODE = {
     PAUSE: 3,
     WIN: 4
 }
-class GameOn extends React.Component {
+class GameOn extends Component {
 
 
     constructor(props) {
@@ -97,12 +97,20 @@ class GameOn extends React.Component {
         if (keys.esc !== 0 && this.pause === 1) {
             this.setState({ initState: MODE.PAUSE });
             this.pause = 2;
-            this.state.input.pressedKeys.esc = 0;
+            this.setState({
+                input:{
+                pressedKeys :{
+                esc : 0}},
+            });
         }
         else if (keys.esc !== 0 && this.pause === 2) {
             this.setState({ initState: MODE.ON });
             this.pause = 1;
-            this.state.input.pressedKeys.esc = 0;
+            this.setState({
+                input:{
+                pressedKeys :{
+                esc : 0}},
+            });
 
         }
         switch (this.state.initState) {
@@ -151,7 +159,7 @@ class GameOn extends React.Component {
 
     nextLevel() {
      
-        if (this.level != 5) {
+        if (this.level !== 5) {
             this.level += 1;
             this.setState({
                 initState: MODE.ON
@@ -203,7 +211,7 @@ class GameOn extends React.Component {
     }
 
     render() {
-        const { startScreen, playing, gameOver, type } = this.props;
+        const { playing } = this.props;
 
         return (
 
@@ -211,7 +219,7 @@ class GameOn extends React.Component {
 
                 {this.state.initState === MODE.WIN
                     && <div style={nextLevel}>
-                    <img src={next_level} style={welcomePageImg} />
+                    <img src={next_level} style={welcomePageImg} alt='noimg'/>
                     <div style={messageStyle}
                         onClick={() =>
                             this.nextLevel()

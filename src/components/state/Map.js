@@ -27,6 +27,8 @@ class Map {
             case (5):
                 this.round5();
                 break;
+                default :
+                break;
         }
     }
 
